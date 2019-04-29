@@ -1,0 +1,67 @@
+import * as Expo from "expo";
+import * as React from "react";
+import { BackHandler } from "react-native";
+import { StyleProvider } from "native-base";
+import { Provider } from "react-redux";
+import "es6-symbol/implement";
+
+import configureStore from "./configureStore";
+import App from "../App";
+import getTheme from "../theme/components";
+import variables from "../theme/variables/platform";
+export interface Props {}
+export interface State {
+	store: Object,
+	isLoading: boolean,
+	isReady: boolean,
+}
+export default class Setup extends React.Component<Props, State> {
+	constructor() {
+    super();
+		this.state = {
+			isLoading: false,
+			store: configureStore(() => this.setState({ isLoading: false })),
+			isReady: false,
+		};
+	}
+    componentDidMount() {
+        BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPressed);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.onBackButtonPressed);
+    }
+
+    onBackButtonPressed() {
+        return true;
+    }
+
+    componentWillMount() {
+      this.loadFonts();
+    }
+  
+    async loadFonts() {
+        console.log("Hiding");
+        Expo.SplashScreen.hide();
+        await Expo.Font.loadAsync({
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+            Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
+        });
+
+        this.setState({ isReady: true });
+    }
+  
+    render() {
+        if (!this.state.isReady || this.state.isLoading) {
+            return <Expo.AppLoading autoHideSplash={false}/>;
+        }
+        return (
+            <StyleProvider style={getTheme(variables)}>
+                <Provider store={this.state.store}>
+                    <App/>
+                </Provider>
+            </StyleProvider>
+        );
+    }
+}

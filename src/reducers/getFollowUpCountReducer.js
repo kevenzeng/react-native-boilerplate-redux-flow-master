@@ -1,0 +1,37 @@
+// 待办数量查询
+// 用途：用于界面图标右上角显示红点数量
+import {
+    REQUEST_START,
+    REQUEST_COMPLETE,
+    REQUEST_FAILED,
+} from "../actions/getFollowUpCountAction";
+
+const defaultState = {
+    isFetching: false,
+    didInvalidate: false,
+    list: []
+};
+
+export default function(state = defaultState, action) {
+    switch (action.type) {
+        case REQUEST_START:
+            return {
+                ...state,
+                isFetching: true,
+                list: []
+            };
+        case REQUEST_COMPLETE:
+            return {
+                ...state,
+                isFetching: false,
+                list: action.payload
+            };
+        case REQUEST_FAILED:
+            return {
+                ...state,
+                isFetching: false
+            };
+        default:
+            return state;
+    }
+}

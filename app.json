@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "sdkVersion": "31.0.0",
+    "slug": "PICCNZX",
+    "description": "PICC 财险南中心运维支持平台",
+    "version": "1.1.20",
+    "icon": "./assets/loading/appIcon1024x1024-01.png",
+    "loading": {
+      "hideExponentText": false,
+      "icon": "./assets/loading.png"
+    },
+    "orientation": "landscape",
+    "primaryColor": "#cccccc",
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    },
+    "assetBundlePatterns": [
+      "./assets/*",
+      "./assets/mainPage/*",
+      "./assets/loginPage/*",
+      "./assets/loading/*"
+    ],
+    "androidStatusBarColor": "#334393",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#334393"
+    },
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package": "com.piccnzx.jammyes"
+    },
+    "updates": {
+      "enabled": false,
+      "fallbackToCacheTimeout": 0
+    }
+  }
+}
